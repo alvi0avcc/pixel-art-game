@@ -7,11 +7,15 @@ import Player from './Player';
 interface GameMapProps {
   map: number[][];
   player: PlayerType;
+  animatedItems: { [key: string]: boolean };
+  exploding: { [key: string]: boolean };
 }
 
 const GameMap: React.FC<GameMapProps> = ({
   map,
   player,
+  animatedItems,
+  exploding,
 }) => {
   return (
     <div
@@ -29,6 +33,8 @@ const GameMap: React.FC<GameMapProps> = ({
             cell={cell}
             x={x}
             y={y}
+            animated={animatedItems[`${x}-${y}`] || false}
+            exploding={exploding[`${x}-${y}`] || false}
           />
         )),
       )}

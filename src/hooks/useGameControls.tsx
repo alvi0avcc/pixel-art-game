@@ -8,6 +8,8 @@ export const useGameControls = ({
   setPlayer,
   setMap,
   setScore,
+  setAnimatedItems,
+  setExploding,
 }: GameControlsProps) => {
   // Используем ref для хранения актуальных значений
   const gameStateRef = useRef({ player, map, score });
@@ -23,16 +25,103 @@ export const useGameControls = ({
 
       let dx = 0,
         dy = 0;
-      if (e.key === 'ArrowUp' || e.key === 'w') dy = -1;
-      else if (e.key === 'ArrowDown' || e.key === 's')
-        dy = 1;
-      else if (e.key === 'ArrowLeft' || e.key === 'a')
-        dx = -1;
-      else if (e.key === 'ArrowRight' || e.key === 'd')
-        dx = 1;
-      else return;
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'ц':
+          dy = -1;
+          break;
+        case 'ArrowDown':
+        case 's':
+        case 'ы':
+          dy = 1;
+          break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'ф':
+          dx = -1;
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'в':
+          dx = 1;
+          break;
+        case ' ':
+          break;
+        default:
+          return;
+      }
 
       e.preventDefault();
+
+      if (dx === 0 && dy === 0) {
+        const positions: { x: number; y: number }[] = [];
+        if (player.x - 1 > 0)
+          positions.push({ x: player.x - 1, y: player.y });
+        if (player.x + 1 < map[0].length - 1)
+          positions.push({ x: player.x + 1, y: player.y });
+        if (player.y - 1 > 0)
+          positions.push({ x: player.x, y: player.y - 1 });
+        if (player.y + 1 < map.length - 1)
+          positions.push({ x: player.x, y: player.y + 1 });
+        if (player.y - 1 > 0 && player.x - 1 > 0)
+          positions.push({
+            x: player.x - 1,
+            y: player.y - 1,
+          });
+        if (
+          player.y - 1 > 0 &&
+          player.x + 1 < map[0].length - 1
+        )
+          positions.push({
+            x: player.x + 1,
+            y: player.y - 1,
+          });
+        if (
+          player.y + 1 < map.length - 1 &&
+          player.x - 1 > 0
+        )
+          positions.push({
+            x: player.x - 1,
+            y: player.y + 1,
+          });
+        if (
+          player.y + 1 < map.length - 1 &&
+          player.x + 1 < map[0].length - 1
+        )
+          positions.push({
+            x: player.x + 1,
+            y: player.y + 1,
+          });
+
+        const explodingState: { [key: string]: boolean } =
+          {};
+        positions.forEach(
+          (pos) =>
+            (explodingState[`${pos.x}-${pos.y}`] = true),
+        );
+        setExploding((prev) => ({
+          ...prev,
+          ...explodingState,
+        }));
+
+        setTimeout(() => {
+          setExploding((prev) => {
+            const newState = { ...prev };
+            positions.forEach(
+              (pos) => delete newState[`${pos.x}-${pos.y}`],
+            );
+            return newState;
+          });
+          const newMap = map.map((row) => row.slice());
+          positions.forEach(
+            (pos) => (newMap[pos.y][pos.x] = 0),
+          );
+          setMap(newMap);
+        }, 300);
+        return;
+      }
 
       const nx = player.x + dx;
       const ny = player.y + dy;
@@ -50,20 +139,43 @@ export const useGameControls = ({
       let newScore = score;
 
       if (map[ny][nx] === 2) {
-        newMap[ny][nx] = 0;
         newScore++;
       }
 
       if (map[ny][nx] === 3) {
-        newMap[ny][nx] = 0;
         newScore = 0;
+        setAnimatedItems((prev) => ({
+          ...prev,
+          [`${nx}-${ny}`]: true,
+        }));
+      }
+
+      if (map[ny][nx] === 2 || map[ny][nx] === 3) {
+        setAnimatedItems((prev) => ({
+          ...prev,
+          [`${nx}-${ny}`]: true,
+        }));
+        setTimeout(() => {
+          setAnimatedItems((prev) => {
+            const newState = { ...prev };
+            delete newState[`${nx}-${ny}`];
+            return newState;
+          });
+          newMap[ny][nx] = 0;
+          setMap(newMap);
+        }, 300);
       }
 
       setPlayer({ x: nx, y: ny });
-      setMap(newMap);
       setScore(newScore);
     },
-    [setPlayer, setMap, setScore],
+    [
+      setPlayer,
+      setMap,
+      setScore,
+      setAnimatedItems,
+      setExploding,
+    ],
   );
 
   return handleKeyDown;

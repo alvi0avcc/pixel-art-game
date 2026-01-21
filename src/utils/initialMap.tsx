@@ -14,7 +14,7 @@ export const initialMap: number[][] = Array.from(
         return 1;
       if (x !== initialPlayer.x && y !== initialPlayer.y) {
         const cell = Math.random();
-        if (cell < 0.1) return 1;
+        if (cell < 0.5) return 1;
         if (cell > 0.9) {
           if (cell < 0.95) return 2;
           if (cell >= 0.95) return 3;

@@ -43,3 +43,9 @@
   margin-top: 16;
   font-size: 20;
 }
+
+@keyframes explode {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}

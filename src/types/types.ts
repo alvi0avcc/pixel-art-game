@@ -7,4 +7,10 @@ export type GameControlsProps = {
   setPlayer: (player: PlayerType) => void;
   setMap: (map: number[][]) => void;
   setScore: (score: number) => void;
+  setAnimatedItems: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >;
+  setExploding: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >;
 };
