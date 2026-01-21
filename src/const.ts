@@ -1,4 +1,4 @@
-import type { Player } from './types/types';
+import type { PlayerType } from './types/types';
 
 export const GameConfig = {
   TileSize: 32,
@@ -6,4 +6,4 @@ export const GameConfig = {
   MapHeight: 10,
 } as const;
 
-export const initialPlayer: Player = { x: 2, y: 2 };
+export const initialPlayer: PlayerType = { x: 2, y: 2 };

@@ -1,10 +1,10 @@
-export type Player = { x: number; y: number };
+export type PlayerType = { x: number; y: number };
 
 export type GameControlsProps = {
-  player: Player;
+  player: PlayerType;
   map: number[][];
   score: number;
-  setPlayer: (player: Player) => void;
+  setPlayer: (player: PlayerType) => void;
   setMap: (map: number[][]) => void;
   setScore: (score: number) => void;
 };

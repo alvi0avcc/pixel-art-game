@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.game-map{
+  position: relative;
+  margin: 0 auto;
+  background: #222;
+  image-rendering: pixelated;
+}
+
 .wall{
   position: absolute;
   background: #444;
@@ -15,17 +22,20 @@
 }
 
 .player{
+  display: flex;
   position: absolute;
   background: transparent;
   z-index: 2;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .item{
+  display: flex;
   position: absolute;
   background: transparent;
+  justify-content: center;
+  align-items: center;
 }
 
 .info{
