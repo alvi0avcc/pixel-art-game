@@ -6,9 +6,14 @@ import { useGameControls } from './hooks/useGameControls';
 import GameMap from './components/GameMap';
 
 function App() {
+  const totalDiamonds = initialMap
+    .flat()
+    .filter((cell) => cell === 2).length;
   const [map, setMap] = useState<number[][]>(initialMap);
   const [player, setPlayer] = useState(initialPlayer);
   const [score, setScore] = useState(0);
+  const [collectedDiamonds, setCollectedDiamonds] =
+    useState(0);
   const [animatedItems, setAnimatedItems] = useState<{
     [key: string]: boolean;
   }>({});
@@ -16,19 +21,25 @@ function App() {
     [key: string]: boolean;
   }>({});
   const [gameOver, setGameOver] = useState(false);
+  const [win, setWin] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const winButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = useGameControls({
     player,
     map,
     score,
     gameOver,
+    collectedDiamonds,
+    totalDiamonds,
     setPlayer,
     setMap,
     setScore,
     setAnimatedItems,
     setExploding,
     setGameOver,
+    setCollectedDiamonds,
+    setWin,
   });
 
   useEffect(() => {
@@ -43,6 +54,12 @@ function App() {
     }
   }, [gameOver]);
 
+  useEffect(() => {
+    if (win) {
+      winButtonRef.current?.focus();
+    }
+  }, [win]);
+
   return (
     <div className="game-container">
       <h1>Pixel Art Game: Collect the items!</h1>
@@ -53,7 +70,7 @@ function App() {
         exploding={exploding}
       />
       <div
-        className={`game-over ${gameOver ? 'show' : ''}`}
+        className={`game-result ${gameOver ? 'show' : ''}`}
       >
         <h2>Game Over</h2>
         <button
@@ -63,6 +80,19 @@ function App() {
           Restart
         </button>
       </div>
+      <div className={`game-result ${win ? 'show' : ''}`}>
+        <h2>You Win!</h2>
+        <p>Collected all {totalDiamonds} diamonds!</p>
+        <button
+          ref={winButtonRef}
+          onClick={() => window.location.reload()}
+        >
+          Play Again
+        </button>
+      </div>
+      <p className="info">
+        Diamonds: {collectedDiamonds}/{totalDiamonds}
+      </p>
       <p className="info">Score: {score}</p>
       <p className="info">Use arrow keys or WASD to move</p>
       <p className="info">

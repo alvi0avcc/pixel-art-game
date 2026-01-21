@@ -17,4 +17,10 @@ export type GameControlsProps = {
   setGameOver: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+  collectedDiamonds: number;
+  totalDiamonds: number;
+  setCollectedDiamonds: React.Dispatch<
+    React.SetStateAction<number>
+  >;
+  setWin: React.Dispatch<React.SetStateAction<boolean>>;
 };

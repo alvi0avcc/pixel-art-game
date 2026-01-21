@@ -50,7 +50,7 @@
   100% { transform: scale(2); opacity: 0; }
 }
 
-.game-over {
+.game-result {
   position: absolute;
   top: 0;
   left: 0;
@@ -68,11 +68,11 @@
   transition: opacity 1s ease-in-out;
 }
 
-.game-over.show {
+.game-result.show {
   opacity: 1;
 }
 
-.game-over button {
+.game-result button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 1rem;
