@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { initialPlayer } from './const';
 import { initialMap } from './utils/initialMap';
@@ -15,16 +15,20 @@ function App() {
   const [exploding, setExploding] = useState<{
     [key: string]: boolean;
   }>({});
+  const [gameOver, setGameOver] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = useGameControls({
     player,
     map,
     score,
+    gameOver,
     setPlayer,
     setMap,
     setScore,
     setAnimatedItems,
     setExploding,
+    setGameOver,
   });
 
   useEffect(() => {
@@ -32,6 +36,12 @@ function App() {
     return () =>
       window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (gameOver) {
+      buttonRef.current?.focus();
+    }
+  }, [gameOver]);
 
   return (
     <div className="game-container">
@@ -42,6 +52,17 @@ function App() {
         animatedItems={animatedItems}
         exploding={exploding}
       />
+      <div
+        className={`game-over ${gameOver ? 'show' : ''}`}
+      >
+        <h2>Game Over</h2>
+        <button
+          ref={buttonRef}
+          onClick={() => window.location.reload()}
+        >
+          Restart
+        </button>
+      </div>
       <p className="info">Score: {score}</p>
       <p className="info">Use arrow keys or WASD to move</p>
       <p className="info">

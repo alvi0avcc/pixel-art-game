@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback } from 'react';
 import type { GameControlsProps } from '../types/types';
 
 export const useGameControls = ({
@@ -10,18 +10,12 @@ export const useGameControls = ({
   setScore,
   setAnimatedItems,
   setExploding,
+  setGameOver,
+  gameOver,
 }: GameControlsProps) => {
-  // Используем ref для хранения актуальных значений
-  const gameStateRef = useRef({ player, map, score });
-
-  // Обновляем ref при изменении состояния
-  useEffect(() => {
-    gameStateRef.current = { player, map, score };
-  }, [player, map, score]);
-
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      const { player, map, score } = gameStateRef.current;
+      if (gameOver) return;
 
       let dx = 0,
         dy = 0;
@@ -148,6 +142,7 @@ export const useGameControls = ({
           ...prev,
           [`${nx}-${ny}`]: true,
         }));
+        setGameOver(true);
       }
 
       if (map[ny][nx] === 2 || map[ny][nx] === 3) {
@@ -170,11 +165,16 @@ export const useGameControls = ({
       setScore(newScore);
     },
     [
+      player,
+      map,
+      score,
+      gameOver,
       setPlayer,
       setMap,
       setScore,
       setAnimatedItems,
       setExploding,
+      setGameOver,
     ],
   );
 
