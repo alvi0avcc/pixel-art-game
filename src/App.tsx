@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { initialPlayer } from './const';
 import { initialMap } from './utils/initialMap';
 import { useGameControls } from './hooks/useGameControls';
 import GameMap from './components/GameMap';
+import GameResultModal from './components/GameResultModal';
 
 function App() {
   const totalDiamonds = initialMap
@@ -22,8 +23,6 @@ function App() {
   }>({});
   const [gameOver, setGameOver] = useState(false);
   const [win, setWin] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const winButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = useGameControls({
     player,
@@ -48,18 +47,6 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  useEffect(() => {
-    if (gameOver) {
-      buttonRef.current?.focus();
-    }
-  }, [gameOver]);
-
-  useEffect(() => {
-    if (win) {
-      winButtonRef.current?.focus();
-    }
-  }, [win]);
-
   return (
     <div className="game-container">
       <h1>Pixel Art Game: Collect the items!</h1>
@@ -69,27 +56,19 @@ function App() {
         animatedItems={animatedItems}
         exploding={exploding}
       />
-      <div
-        className={`game-result ${gameOver ? 'show' : ''}`}
-      >
-        <h2>Game Over</h2>
-        <button
-          ref={buttonRef}
-          onClick={() => window.location.reload()}
-        >
-          Restart
-        </button>
-      </div>
-      <div className={`game-result ${win ? 'show' : ''}`}>
-        <h2>You Win!</h2>
-        <p>Collected all {totalDiamonds} diamonds!</p>
-        <button
-          ref={winButtonRef}
-          onClick={() => window.location.reload()}
-        >
-          Play Again
-        </button>
-      </div>
+      <GameResultModal
+        isOpen={gameOver}
+        title="Game Over"
+        buttonText="Restart"
+        onRestart={() => window.location.reload()}
+      />
+      <GameResultModal
+        isOpen={win}
+        title="You Win!"
+        message={`Collected all ${totalDiamonds} diamonds!`}
+        buttonText="Play Again"
+        onRestart={() => window.location.reload()}
+      />
       <p className="info">
         Diamonds: {collectedDiamonds}/{totalDiamonds}
       </p>
