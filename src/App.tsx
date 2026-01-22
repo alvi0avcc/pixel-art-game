@@ -98,6 +98,14 @@ function App() {
       <p className="info">
         Use "SPACE" to destroy walls around you
       </p>
+      <a
+        className="info"
+        href="https://github.com/alvi0avcc/pixel-art-game"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Link to repo
+      </a>
     </div>
   );
 }
