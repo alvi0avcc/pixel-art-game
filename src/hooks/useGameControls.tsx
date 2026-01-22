@@ -10,16 +10,16 @@ export const useGameControls = ({
   setScore,
   setAnimatedItems,
   setExploding,
-  setGameOver,
-  gameOver,
-  collectedDiamonds,
+  gameState,
+  setGameState,
   totalDiamonds,
   setCollectedDiamonds,
-  setWin,
+  bombs,
+  setBombs,
 }: GameControlsProps) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (gameOver) return;
+      if (gameState !== 'none') return;
 
       let dx = 0,
         dy = 0;
@@ -54,6 +54,8 @@ export const useGameControls = ({
       e.preventDefault();
 
       if (dx === 0 && dy === 0) {
+        if (bombs <= 0) return;
+        setBombs((prev) => prev - 1);
         let positions: { x: number; y: number }[] = [];
         if (player.x - 1 > 0)
           positions.push({ x: player.x - 1, y: player.y });
@@ -144,7 +146,8 @@ export const useGameControls = ({
         newScore++;
         setCollectedDiamonds((prev) => {
           const newCount = prev + 1;
-          if (newCount === totalDiamonds) setWin(true);
+          if (newCount === totalDiamonds)
+            setGameState('win');
           return newCount;
         });
       }
@@ -155,7 +158,7 @@ export const useGameControls = ({
           ...prev,
           [`${nx}-${ny}`]: true,
         }));
-        setGameOver(true);
+        setGameState('gameOver');
       }
 
       if (map[ny][nx] === 2 || map[ny][nx] === 3) {
@@ -181,17 +184,17 @@ export const useGameControls = ({
       player,
       map,
       score,
-      gameOver,
-      collectedDiamonds,
+      gameState,
       totalDiamonds,
+      bombs,
       setPlayer,
       setMap,
       setScore,
       setAnimatedItems,
       setExploding,
-      setGameOver,
+      setGameState,
       setCollectedDiamonds,
-      setWin,
+      setBombs,
     ],
   );
 

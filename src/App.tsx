@@ -3,8 +3,10 @@ import './App.css';
 import { initialPlayer } from './const';
 import { initialMap } from './utils/initialMap';
 import { useGameControls } from './hooks/useGameControls';
+import type { GameState } from './types/types';
 import GameMap from './components/GameMap';
-import GameResultModal from './components/GameResultModal';
+import GameStats from './components/GameStats/GameStats';
+import GameModals from './components/GameModals/GameModals';
 
 function App() {
   const totalDiamonds = initialMap
@@ -21,14 +23,15 @@ function App() {
   const [exploding, setExploding] = useState<{
     [key: string]: boolean;
   }>({});
-  const [gameOver, setGameOver] = useState(false);
-  const [win, setWin] = useState(false);
+  const [bombs, setBombs] = useState(3);
+  const [gameState, setGameState] =
+    useState<GameState>('none');
 
   const handleKeyDown = useGameControls({
     player,
     map,
     score,
-    gameOver,
+    gameState,
     collectedDiamonds,
     totalDiamonds,
     setPlayer,
@@ -36,9 +39,10 @@ function App() {
     setScore,
     setAnimatedItems,
     setExploding,
-    setGameOver,
+    setGameState,
     setCollectedDiamonds,
-    setWin,
+    bombs,
+    setBombs,
   });
 
   useEffect(() => {
@@ -56,27 +60,17 @@ function App() {
         animatedItems={animatedItems}
         exploding={exploding}
       />
-      <GameResultModal
-        isOpen={gameOver}
-        title="Game Over"
-        buttonText="Restart"
+      <GameModals
+        gameState={gameState}
+        totalDiamonds={totalDiamonds}
         onRestart={() => window.location.reload()}
       />
-      <GameResultModal
-        isOpen={win}
-        title="You Win!"
-        message={`Collected all ${totalDiamonds} diamonds!`}
-        buttonText="Play Again"
-        onRestart={() => window.location.reload()}
+      <GameStats
+        collectedDiamonds={collectedDiamonds}
+        totalDiamonds={totalDiamonds}
+        bombs={bombs}
+        score={score}
       />
-      <p className="info">
-        Diamonds: {collectedDiamonds}/{totalDiamonds}
-      </p>
-      <p className="info">Score: {score}</p>
-      <p className="info">Use arrow keys or WASD to move</p>
-      <p className="info">
-        Use "SPACE" to destroy walls around you
-      </p>
       <a
         className="info"
         href="https://github.com/alvi0avcc/pixel-art-game"

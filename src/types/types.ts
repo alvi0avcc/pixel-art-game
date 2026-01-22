@@ -1,10 +1,12 @@
 export type PlayerType = { x: number; y: number };
 
+export type GameState = 'none' | 'win' | 'gameOver';
+
 export type GameControlsProps = {
   player: PlayerType;
   map: number[][];
   score: number;
-  gameOver: boolean;
+  gameState: GameState;
   setPlayer: (player: PlayerType) => void;
   setMap: (map: number[][]) => void;
   setScore: (score: number) => void;
@@ -14,13 +16,14 @@ export type GameControlsProps = {
   setExploding: React.Dispatch<
     React.SetStateAction<{ [key: string]: boolean }>
   >;
-  setGameOver: React.Dispatch<
-    React.SetStateAction<boolean>
+  setGameState: React.Dispatch<
+    React.SetStateAction<GameState>
   >;
   collectedDiamonds: number;
   totalDiamonds: number;
   setCollectedDiamonds: React.Dispatch<
     React.SetStateAction<number>
   >;
-  setWin: React.Dispatch<React.SetStateAction<boolean>>;
+  bombs: number;
+  setBombs: React.Dispatch<React.SetStateAction<number>>;
 };
