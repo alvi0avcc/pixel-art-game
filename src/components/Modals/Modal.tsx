@@ -17,8 +17,6 @@ const Modal: React.FC<ModalProps> = ({
   buttonText,
   onRestart,
 }) => {
-  // const [showModal, setShowModal] = useState(isOpen);
-
   return (
     isOpen &&
     createPortal(
@@ -29,9 +27,6 @@ const Modal: React.FC<ModalProps> = ({
           <button autoFocus onClick={onRestart}>
             {buttonText}
           </button>
-          {/* <button onClick={() => setShowModal(false)}>
-          {buttonText}
-        </button> */}
         </div>
       </div>,
       document.body,

@@ -6,7 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import About from './pages/About/About';
-import Page404 from './pages/Page404/PAge404';
+import Page404 from './pages/Page404/Page404';
 
 const App = () => {
   return (

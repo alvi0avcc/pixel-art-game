@@ -13,15 +13,13 @@ const HomePage = () => {
   //   throw new Error('Test error for ErrorBoundary');
   // };
   // TestError();
-
-  const totalDiamonds = initialMap
-    .flat()
-    .filter((cell) => cell === 2).length;
-  const [map, setMap] = useState<number[][]>(initialMap);
+  const [map, setMap] = useState<number[][]>(initialMap());
+  const [totalDiamonds, setTotalDiamonds] = useState<number>(
+    map.flat().filter((cell) => cell === 2).length,
+  );
   const [player, setPlayer] = useState(initialPlayer);
   const [score, setScore] = useState(0);
-  const [collectedDiamonds, setCollectedDiamonds] =
-    useState(0);
+  const [collectedDiamonds, setCollectedDiamonds] = useState(0);
   const [animatedItems, setAnimatedItems] = useState<{
     [key: string]: boolean;
   }>({});
@@ -29,8 +27,7 @@ const HomePage = () => {
     [key: string]: boolean;
   }>({});
   const [bombs, setBombs] = useState(3);
-  const [gameState, setGameState] =
-    useState<GameState>('none');
+  const [gameState, setGameState] = useState<GameState>('none');
 
   const handleKeyDown = useGameControls({
     player,
@@ -50,10 +47,21 @@ const HomePage = () => {
     setBombs,
   });
 
+  const reInitGame = () => {
+    setMap(initialMap());
+    setPlayer(initialPlayer);
+    setScore(0);
+    setCollectedDiamonds(0);
+    setTotalDiamonds(map.flat().filter((cell) => cell === 2).length);
+    setAnimatedItems({});
+    setExploding({});
+    setBombs(3);
+    setGameState('none');
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    return () =>
-      window.removeEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
   return (
@@ -70,7 +78,7 @@ const HomePage = () => {
       <GameResultModals
         gameState={gameState}
         totalDiamonds={totalDiamonds}
-        onRestart={() => window.location.reload()}
+        onRestart={() => reInitGame()}
       />
       <GameStats
         collectedDiamonds={collectedDiamonds}
