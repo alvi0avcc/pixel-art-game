@@ -1,8 +1,9 @@
+import styles from './GameMap.module.css';
 import React from 'react';
-import { GameConfig } from '../const';
-import { type PlayerType } from '../types/types';
-import Tile from './Tile';
-import Player from './Player';
+import { GameConfig } from '../../const';
+import { type PlayerType } from '../../types/types';
+import Tile from './Tile/Tile';
+import Player from './Player/Player';
 
 interface GameMapProps {
   map: number[][];
@@ -18,8 +19,8 @@ const GameMap: React.FC<GameMapProps> = ({
   exploding,
 }) => {
   return (
-    <div
-      className="game-map"
+    <section
+      className={styles.gameMap}
       style={{
         width: GameConfig.TileSize * GameConfig.MapWidth,
         height: GameConfig.TileSize * GameConfig.MapHeight,
@@ -39,7 +40,7 @@ const GameMap: React.FC<GameMapProps> = ({
         )),
       )}
       <Player player={player} />
-    </div>
+    </section>
   );
 };
 

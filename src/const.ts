@@ -3,7 +3,11 @@ import type { PlayerType } from './types/types';
 export const GameConfig = {
   TileSize: 32,
   MapWidth: 15,
-  MapHeight: 10,
+  MapHeight: 11,
 } as const;
 
-export const initialPlayer: PlayerType = { x: 2, y: 2 };
+export const initialPlayer: PlayerType = {
+  x: Math.trunc(GameConfig.MapWidth / 2),
+  y: Math.trunc(GameConfig.MapHeight / 2),
+  direction: 'left',
+};

@@ -1,5 +1,6 @@
+import styles from './Item.module.css';
 import React from 'react';
-import { GameConfig } from '../const';
+import { GameConfig } from '../../../const';
 
 interface ItemProps {
   x: number;
@@ -16,14 +17,13 @@ const Item: React.FC<ItemProps> = ({
 }) => {
   return (
     <div
-      className="item"
+      className={styles.item}
       style={{
         left: x * GameConfig.TileSize + 6,
         top: y * GameConfig.TileSize + 6,
         width: GameConfig.TileSize - 12,
         height: GameConfig.TileSize - 12,
         transform: animated ? 'scale(3)' : 'scale(1)',
-        transition: 'transform 0.3s ease',
       }}
     >
       {emoji}

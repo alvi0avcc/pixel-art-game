@@ -1,4 +1,13 @@
-export type PlayerType = { x: number; y: number };
+export type DirectionType =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right';
+export type PlayerType = {
+  x: number;
+  y: number;
+  direction: DirectionType;
+};
 
 export type GameState = 'none' | 'win' | 'gameOver';
 

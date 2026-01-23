@@ -1,5 +1,6 @@
+import styles from './Wall.module.css';
 import React from 'react';
-import { GameConfig } from '../const';
+import { GameConfig } from '../../../const';
 
 interface WallProps {
   x: number;
@@ -9,7 +10,7 @@ interface WallProps {
 const Wall: React.FC<WallProps> = ({ x, y }) => {
   return (
     <div
-      className="wall"
+      className={styles.wall}
       style={{
         left: x * GameConfig.TileSize,
         top: y * GameConfig.TileSize,

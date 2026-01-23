@@ -1,6 +1,6 @@
 import { GameConfig, initialPlayer } from '../const';
 
-// 0 - пусто; 1 - стена; 2 - предмет для сбора
+// 0 - пусто; 1 - стена; 2 - предмет для сбора; 3 - мина
 const map: number[][] = [];
 for (let y = 0; y < GameConfig.MapHeight; y++) {
   map[y] = [];
@@ -40,5 +40,9 @@ for (let y = 0; y < GameConfig.MapHeight; y++) {
     }
   }
 }
+
+// Проверяем, есть ли хотя бы один diamond (2)
+const hasDiamond = map.some((row) => row.includes(2));
+if (!hasDiamond) map[1][1] = 2;
 
 export const initialMap = map;

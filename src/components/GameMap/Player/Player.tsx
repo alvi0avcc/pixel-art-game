@@ -1,20 +1,27 @@
+import styles from './Player.module.css';
 import React from 'react';
-import { GameConfig } from '../const';
-import { type PlayerType } from '../types/types';
+import { GameConfig } from '../../../const';
+import { type PlayerType } from '../../../types/types';
 
 interface PlayerProps {
   player: PlayerType;
 }
 
 const Player: React.FC<PlayerProps> = ({ player }) => {
+  const transform =
+    player.direction === 'left'
+      ? 'scaleX(1)'
+      : 'scaleX(-1)';
+
   return (
     <div
-      className="player"
+      className={styles.player}
       style={{
         left: player.x * GameConfig.TileSize,
         top: player.y * GameConfig.TileSize,
         width: GameConfig.TileSize,
         height: GameConfig.TileSize,
+        transform,
       }}
     >
       🚶

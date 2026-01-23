@@ -1,0 +1,19 @@
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gameArea {
+  width: 100%;
+  overflow: auto;
+}
+
+.info {
+  color: '#aaa';
+  margin-top: 16;
+  font-size: 20;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import Wall from './Wall';
-import Item from './Item';
-import Explosion from './Explosion';
+import Wall from '../Wall/Wall';
+import Item from '../Items/Item';
+import Explosion from '../Explosion/Explosion';
 
 interface TileProps {
   cell: number;

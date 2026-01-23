@@ -1,5 +1,6 @@
+import styles from './Explosion.module.css';
 import React from 'react';
-import { GameConfig } from '../const';
+import { GameConfig } from '../../../const';
 
 interface ExplosionProps {
   x: number;
@@ -9,15 +10,12 @@ interface ExplosionProps {
 const Explosion: React.FC<ExplosionProps> = ({ x, y }) => {
   return (
     <div
+      className={styles.explosion}
       style={{
         left: x * GameConfig.TileSize,
         top: y * GameConfig.TileSize,
         width: GameConfig.TileSize,
         height: GameConfig.TileSize,
-        position: 'absolute',
-        backgroundColor: 'orange',
-        borderRadius: '50%',
-        animation: 'explode 0.3s ease-out',
       }}
     >
       💥

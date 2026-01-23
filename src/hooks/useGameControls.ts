@@ -21,26 +21,27 @@ export const useGameControls = ({
     (e: KeyboardEvent) => {
       if (gameState !== 'none') return;
 
+      const key = e.key.toLowerCase();
       let dx = 0,
         dy = 0;
 
-      switch (e.key) {
-        case 'ArrowUp':
+      switch (key) {
+        case 'arrowup':
         case 'w':
         case 'ц':
           dy = -1;
           break;
-        case 'ArrowDown':
+        case 'arrowdown':
         case 's':
         case 'ы':
           dy = 1;
           break;
-        case 'ArrowLeft':
+        case 'arrowleft':
         case 'a':
         case 'ф':
           dx = -1;
           break;
-        case 'ArrowRight':
+        case 'arrowright':
         case 'd':
         case 'в':
           dx = 1;
@@ -177,7 +178,16 @@ export const useGameControls = ({
         }, 300);
       }
 
-      setPlayer({ x: nx, y: ny });
+      setPlayer({
+        x: nx,
+        y: ny,
+        direction:
+          dx !== 0
+            ? dx < 0
+              ? 'left'
+              : 'right'
+            : player.direction,
+      });
       setScore(newScore);
     },
     [
