@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage/HomePage';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import About from './pages/About/About';
+import Page404 from './pages/Page404/PAge404';
 
 const App = () => {
   return (
@@ -13,8 +15,8 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* <Route path="about" element={<About />} /> */}
-          {/* <Route path="*" element={<Page404 />} /> */}
+          <Route path="about" element={<About />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
         <Footer />
       </Wrapper>
