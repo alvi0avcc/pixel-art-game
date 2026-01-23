@@ -2,7 +2,6 @@ import React from 'react';
 import DiamondCounter from './DiamondCounter';
 import BombCounter from './BombCounter';
 import ScoreCounter from './ScoreCounter';
-import GameInstructions from '../GameInstructions';
 
 interface GameStatsProps {
   collectedDiamonds: number;
@@ -25,7 +24,6 @@ const GameStats: React.FC<GameStatsProps> = ({
       />
       <BombCounter bombs={bombs} />
       <ScoreCounter score={score} />
-      <GameInstructions />
     </>
   );
 };

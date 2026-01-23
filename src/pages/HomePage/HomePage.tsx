@@ -7,6 +7,7 @@ import type { GameState } from '../../types/types';
 import GameMap from '../../components/GameMap/GameMap';
 import GameStats from '../../components/GameStats/GameStats';
 import GameResultModals from '../../components/Modals/GameResultModals';
+import GameInstructions from '../../components/GameInstructions/GameInstructions';
 
 const HomePage = () => {
   // const TestError = () => {
@@ -48,11 +49,12 @@ const HomePage = () => {
   });
 
   const reInitGame = () => {
-    setMap(initialMap());
+    const newMap = initialMap();
+    setMap(newMap);
     setPlayer(initialPlayer);
     setScore(0);
     setCollectedDiamonds(0);
-    setTotalDiamonds(map.flat().filter((cell) => cell === 2).length);
+    setTotalDiamonds(newMap.flat().filter((cell) => cell === 2).length);
     setAnimatedItems({});
     setExploding({});
     setBombs(3);
@@ -68,23 +70,24 @@ const HomePage = () => {
     <main className={styles.gameContainer}>
       <h1>Collect the items!</h1>
       <section className={styles.gameArea}>
+        <GameStats
+          collectedDiamonds={collectedDiamonds}
+          totalDiamonds={totalDiamonds}
+          bombs={bombs}
+          score={score}
+        />
         <GameMap
           map={map}
           player={player}
           animatedItems={animatedItems}
           exploding={exploding}
         />
+        <GameInstructions />
       </section>
       <GameResultModals
         gameState={gameState}
         totalDiamonds={totalDiamonds}
         onRestart={() => reInitGame()}
-      />
-      <GameStats
-        collectedDiamonds={collectedDiamonds}
-        totalDiamonds={totalDiamonds}
-        bombs={bombs}
-        score={score}
       />
     </main>
   );
