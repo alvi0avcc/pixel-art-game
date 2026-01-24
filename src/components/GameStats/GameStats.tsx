@@ -1,3 +1,4 @@
+import styles from './GameStats.module.css';
 import React from 'react';
 import DiamondCounter from './DiamondCounter';
 import BombCounter from './BombCounter';
@@ -17,14 +18,14 @@ const GameStats: React.FC<GameStatsProps> = ({
   score,
 }) => {
   return (
-    <>
+    <section className={styles.gameStats}>
       <DiamondCounter
         collectedDiamonds={collectedDiamonds}
         totalDiamonds={totalDiamonds}
       />
       <BombCounter bombs={bombs} />
       <ScoreCounter score={score} />
-    </>
+    </section>
   );
 };
 

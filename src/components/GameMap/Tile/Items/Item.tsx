@@ -1,6 +1,6 @@
 import styles from './Item.module.css';
 import React from 'react';
-import { GameConfig } from '../../../const';
+import { GameConfig } from '@const/const';
 
 interface ItemProps {
   x: number;
@@ -9,12 +9,7 @@ interface ItemProps {
   animated: boolean;
 }
 
-const Item: React.FC<ItemProps> = ({
-  x,
-  y,
-  emoji,
-  animated,
-}) => {
+const Item: React.FC<ItemProps> = ({ x, y, emoji, animated }) => {
   return (
     <div
       className={styles.item}

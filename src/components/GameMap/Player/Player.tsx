@@ -1,17 +1,14 @@
 import styles from './Player.module.css';
 import React from 'react';
-import { GameConfig } from '../../../const';
-import { type PlayerType } from '../../../types/types';
+import { GameConfig } from '@const/const';
+import { type PlayerType } from '@appTypes/types';
 
 interface PlayerProps {
   player: PlayerType;
 }
 
 const Player: React.FC<PlayerProps> = ({ player }) => {
-  const transform =
-    player.direction === 'left'
-      ? 'scaleX(1)'
-      : 'scaleX(-1)';
+  const transform = player.direction === 'left' ? 'scaleX(1)' : 'scaleX(-1)';
 
   return (
     <div

@@ -1,13 +1,13 @@
 import styles from './HomePage.module.css';
 import { useState, useEffect } from 'react';
-import { initialPlayer } from '../../const';
-import { initialMap } from '../../utils/initialMap';
-import { useGameControls } from '../../hooks/useGameControls';
-import type { GameState } from '../../types/types';
-import GameMap from '../../components/GameMap/GameMap';
-import GameStats from '../../components/GameStats/GameStats';
-import GameResultModals from '../../components/Modals/GameResultModals';
-import GameInstructions from '../../components/GameInstructions/GameInstructions';
+import { initialPlayer } from '@const/const';
+import { initialMap } from '@utils/initialMap';
+import { useGameControls } from '@hooks/useGameControls';
+import type { GameState } from '@appTypes/types';
+import GameMap from '@components/GameMap/GameMap';
+import GameStats from '@components/GameStats/GameStats';
+import GameResultModals from '@components/Modals/GameResultModals';
+import GameInstructions from '@components/GameInstructions/GameInstructions';
 
 const HomePage = () => {
   // const TestError = () => {
@@ -69,21 +69,21 @@ const HomePage = () => {
   return (
     <main className={styles.gameContainer}>
       <h1>Collect the items!</h1>
+      <GameStats
+        collectedDiamonds={collectedDiamonds}
+        totalDiamonds={totalDiamonds}
+        bombs={bombs}
+        score={score}
+      />
       <section className={styles.gameArea}>
-        <GameStats
-          collectedDiamonds={collectedDiamonds}
-          totalDiamonds={totalDiamonds}
-          bombs={bombs}
-          score={score}
-        />
         <GameMap
           map={map}
           player={player}
           animatedItems={animatedItems}
           exploding={exploding}
         />
-        <GameInstructions />
       </section>
+      <GameInstructions />
       <GameResultModals
         gameState={gameState}
         totalDiamonds={totalDiamonds}

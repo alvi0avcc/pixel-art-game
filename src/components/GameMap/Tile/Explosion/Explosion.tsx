@@ -1,6 +1,6 @@
 import styles from './Explosion.module.css';
 import React from 'react';
-import { GameConfig } from '../../../const';
+import { GameConfig } from '@const/const';
 
 interface ExplosionProps {
   x: number;

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { GameState } from '../../types/types';
+import type { GameState } from '@appTypes/types';
 import Modal from './Modal';
 
 interface GameModalsProps {

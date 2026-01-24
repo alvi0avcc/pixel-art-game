@@ -1,7 +1,7 @@
 import styles from './GameMap.module.css';
 import React from 'react';
-import { GameConfig } from '../../const';
-import { type PlayerType } from '../../types/types';
+import { GameConfig } from '@const/const';
+import { type PlayerType } from '@appTypes/types';
 import Tile from './Tile/Tile';
 import Player from './Player/Player';
 

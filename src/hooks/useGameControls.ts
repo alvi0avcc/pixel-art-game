@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { GameControlsProps } from '../types/types';
+import type { GameControlsProps } from '@appTypes/types';
 
 export const useGameControls = ({
   player,
@@ -58,12 +58,10 @@ export const useGameControls = ({
         if (bombs <= 0) return;
         setBombs((prev) => prev - 1);
         let positions: { x: number; y: number }[] = [];
-        if (player.x - 1 > 0)
-          positions.push({ x: player.x - 1, y: player.y });
+        if (player.x - 1 > 0) positions.push({ x: player.x - 1, y: player.y });
         if (player.x + 1 < map[0].length - 1)
           positions.push({ x: player.x + 1, y: player.y });
-        if (player.y - 1 > 0)
-          positions.push({ x: player.x, y: player.y - 1 });
+        if (player.y - 1 > 0) positions.push({ x: player.x, y: player.y - 1 });
         if (player.y + 1 < map.length - 1)
           positions.push({ x: player.x, y: player.y + 1 });
         if (player.y - 1 > 0 && player.x - 1 > 0)
@@ -71,40 +69,27 @@ export const useGameControls = ({
             x: player.x - 1,
             y: player.y - 1,
           });
-        if (
-          player.y - 1 > 0 &&
-          player.x + 1 < map[0].length - 1
-        )
+        if (player.y - 1 > 0 && player.x + 1 < map[0].length - 1)
           positions.push({
             x: player.x + 1,
             y: player.y - 1,
           });
-        if (
-          player.y + 1 < map.length - 1 &&
-          player.x - 1 > 0
-        )
+        if (player.y + 1 < map.length - 1 && player.x - 1 > 0)
           positions.push({
             x: player.x - 1,
             y: player.y + 1,
           });
-        if (
-          player.y + 1 < map.length - 1 &&
-          player.x + 1 < map[0].length - 1
-        )
+        if (player.y + 1 < map.length - 1 && player.x + 1 < map[0].length - 1)
           positions.push({
             x: player.x + 1,
             y: player.y + 1,
           });
 
-        positions = positions.filter(
-          (pos) => map[pos.y][pos.x] !== 2,
-        );
+        positions = positions.filter((pos) => map[pos.y][pos.x] !== 2);
 
-        const explodingState: { [key: string]: boolean } =
-          {};
+        const explodingState: { [key: string]: boolean } = {};
         positions.forEach(
-          (pos) =>
-            (explodingState[`${pos.x}-${pos.y}`] = true),
+          (pos) => (explodingState[`${pos.x}-${pos.y}`] = true),
         );
         setExploding((prev) => ({
           ...prev,
@@ -114,15 +99,11 @@ export const useGameControls = ({
         setTimeout(() => {
           setExploding((prev) => {
             const newState = { ...prev };
-            positions.forEach(
-              (pos) => delete newState[`${pos.x}-${pos.y}`],
-            );
+            positions.forEach((pos) => delete newState[`${pos.x}-${pos.y}`]);
             return newState;
           });
           const newMap = map.map((row) => row.slice());
-          positions.forEach(
-            (pos) => (newMap[pos.y][pos.x] = 0),
-          );
+          positions.forEach((pos) => (newMap[pos.y][pos.x] = 0));
           setMap(newMap);
         }, 300);
         return;
@@ -131,13 +112,7 @@ export const useGameControls = ({
       const nx = player.x + dx;
       const ny = player.y + dy;
 
-      if (
-        ny < 0 ||
-        ny >= map.length ||
-        nx < 0 ||
-        nx >= map[0].length
-      )
-        return;
+      if (ny < 0 || ny >= map.length || nx < 0 || nx >= map[0].length) return;
       if (map[ny][nx] === 1) return;
 
       const newMap = map.map((row) => row.slice());
@@ -147,8 +122,7 @@ export const useGameControls = ({
         newScore++;
         setCollectedDiamonds((prev) => {
           const newCount = prev + 1;
-          if (newCount === totalDiamonds)
-            setGameState('win');
+          if (newCount === totalDiamonds) setGameState('win');
           return newCount;
         });
       }
@@ -181,12 +155,7 @@ export const useGameControls = ({
       setPlayer({
         x: nx,
         y: ny,
-        direction:
-          dx !== 0
-            ? dx < 0
-              ? 'left'
-              : 'right'
-            : player.direction,
+        direction: dx !== 0 ? (dx < 0 ? 'left' : 'right') : player.direction,
       });
       setScore(newScore);
     },

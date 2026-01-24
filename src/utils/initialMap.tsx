@@ -1,4 +1,4 @@
-import { GameConfig, initialPlayer } from '../const';
+import { GameConfig, initialPlayer } from '@const/const';
 
 // 0 - пусто; 1 - стена; 2 - предмет для сбора; 3 - мина
 export const initialMap = (): number[][] => {

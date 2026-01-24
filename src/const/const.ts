@@ -1,4 +1,4 @@
-import type { PlayerType } from './types/types';
+import type { PlayerType } from '@appTypes/types';
 
 export const GameConfig = {
   TileSize: 32,
