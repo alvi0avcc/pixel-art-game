@@ -1,6 +1,7 @@
 .gameStats {
   display: flex;
   gap: 15px;
+  align-items: center;
   justify-content: center;
   padding: 10px;
   background-color: transparent;
@@ -15,4 +16,8 @@
 
 .gameStats * {
   font-weight: 600;
+}
+
+.gameStats *:not(button):hover {
+  cursor: default;
 }

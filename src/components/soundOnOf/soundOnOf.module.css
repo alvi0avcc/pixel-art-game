@@ -1,0 +1,16 @@
+.SoundOnOfButton {
+  background-color: lightslategray;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+/* .SoundOnOfButton:hover {
+  transform: scale(1.5);
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.SoundOnOfButton:focus {
+  outline: none;
+} */

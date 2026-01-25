@@ -27,7 +27,7 @@ const HomePage = () => {
   const [exploding, setExploding] = useState<{
     [key: string]: boolean;
   }>({});
-  const [bombs, setBombs] = useState(3);
+  const [bombs, setBombs] = useState(initialPlayer.bombCount);
   const [gameState, setGameState] = useState<GameState>('none');
 
   const handleKeyDown = useGameControls({
@@ -74,6 +74,7 @@ const HomePage = () => {
         totalDiamonds={totalDiamonds}
         bombs={bombs}
         score={score}
+        onRestart={() => reInitGame()}
       />
       <section className={styles.gameArea}>
         <GameMap

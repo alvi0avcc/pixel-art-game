@@ -1,12 +1,10 @@
-export type DirectionType =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right';
+export type PlayerDirectionType = 'up' | 'down' | 'left' | 'right';
+
 export type PlayerType = {
   x: number;
   y: number;
-  direction: DirectionType;
+  direction: PlayerDirectionType;
+  bombCount: number;
 };
 
 export type GameState = 'none' | 'win' | 'gameOver';
@@ -25,14 +23,10 @@ export type GameControlsProps = {
   setExploding: React.Dispatch<
     React.SetStateAction<{ [key: string]: boolean }>
   >;
-  setGameState: React.Dispatch<
-    React.SetStateAction<GameState>
-  >;
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>;
   collectedDiamonds: number;
   totalDiamonds: number;
-  setCollectedDiamonds: React.Dispatch<
-    React.SetStateAction<number>
-  >;
+  setCollectedDiamonds: React.Dispatch<React.SetStateAction<number>>;
   bombs: number;
   setBombs: React.Dispatch<React.SetStateAction<number>>;
 };

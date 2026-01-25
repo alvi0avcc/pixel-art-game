@@ -10,4 +10,5 @@ export const initialPlayer: PlayerType = {
   x: Math.trunc(GameConfig.MapWidth / 2),
   y: Math.trunc(GameConfig.MapHeight / 2),
   direction: 'left',
+  bombCount: 3,
 };
