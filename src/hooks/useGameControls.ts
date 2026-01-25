@@ -153,6 +153,7 @@ export const useGameControls = ({
       }
 
       setPlayer({
+        ...player,
         x: nx,
         y: ny,
         direction: dx !== 0 ? (dx < 0 ? 'left' : 'right') : player.direction,
